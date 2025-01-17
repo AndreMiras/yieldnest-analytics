@@ -46,6 +46,12 @@ export default function Home() {
   }, [timeframe]);
 
   const latestExchangeRate = Number(data[0]?.exchangeRate);
+  const timeframes = [
+    { value: "1", text: "1 day" },
+    { value: "7", text: "7 days" },
+    { value: "30", text: "30 days" },
+    { value: "90", text: "90 days" },
+  ];
 
   return (
     <main className="p-4">
@@ -61,10 +67,9 @@ export default function Home() {
                 <SelectValue>{timeframe}d</SelectValue>
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="1">24 hours</SelectItem>
-                <SelectItem value="7">7 days</SelectItem>
-                <SelectItem value="30">30 days</SelectItem>
-                <SelectItem value="90">90 days</SelectItem>
+                {timeframes.map((tf) => (
+                  <SelectItem key={tf.value} value={tf.value}>{tf.text}</SelectItem>
+                ))}
               </SelectContent>
             </Select>
           </div>

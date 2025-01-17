@@ -14,7 +14,7 @@ import { PerformanceChart } from "@/components/metrics/PerformanceChart";
 import { MetricsSnapshot } from "@/types/metrics";
 
 export default function Home() {
-  const [timeframe, setTimeframe] = useState(30);
+  const [timeframe, setTimeframe] = useState("30");
   const [data, setData] = useState<MetricsSnapshot[]>([]);
 
   useEffect(() => {
@@ -46,14 +46,14 @@ export default function Home() {
   }, [timeframe]);
 
   const latestExchangeRate = Number(data[0]?.exchangeRate);
-  const timeframes = [
-    { value: "1", text: "1 day" },
-    { value: "7", text: "7 days" },
-    { value: "30", text: "30 days" },
-    { value: "90", text: "90 days" },
-    { value: "365", text: "1 year" },
-    { value: "max", text: "Max" },
-  ];
+  const timeframes = {
+    "1": "1 day",
+    "7": "7 days",
+    "30": "30 days",
+    "90": "90 days",
+    "365": "1 year",
+    max: "Max",
+  };
 
   return (
     <main className="p-4">
@@ -61,17 +61,14 @@ export default function Home() {
         <CardHeader>
           <div className="flex justify-between items-center">
             <CardTitle>ynETH Performance vs ETH</CardTitle>
-            <Select
-              value={timeframe.toString()}
-              onValueChange={(tf) => setTimeframe(Number(tf))}
-            >
+            <Select value={timeframe} onValueChange={(tf) => setTimeframe(tf)}>
               <SelectTrigger className="w-32">
-                <SelectValue>{timeframe}d</SelectValue>
+                <SelectValue>{timeframes[timeframe]}</SelectValue>
               </SelectTrigger>
               <SelectContent>
-                {timeframes.map((tf) => (
-                  <SelectItem key={tf.value} value={tf.value}>
-                    {tf.text}
+                {Object.keys(timeframes).map((tfValue) => (
+                  <SelectItem key={tfValue} value={tfValue}>
+                    {timeframes[tfValue]}
                   </SelectItem>
                 ))}
               </SelectContent>

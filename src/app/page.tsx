@@ -60,7 +60,7 @@ export default function Home() {
   const currentAPY = calculateCurrentAPY(data);
 
   return (
-    <main className="p-4">
+    <main>
       <Card>
         <CardHeader>
           <div className="flex justify-between items-center">

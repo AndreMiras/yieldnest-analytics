@@ -55,7 +55,7 @@ export default function Home() {
     fetchData();
   }, [timeframe]);
 
-  const latestExchangeRate = Number(data[0]?.exchangeRate);
+  const latestExchangeRate = Number(data[data.length-1]?.exchangeRate);
 
   return (
     <main className="p-4">

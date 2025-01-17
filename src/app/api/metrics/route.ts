@@ -1,5 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 
+// The Graph's maximum page size
+const PAGE_SIZE = 1000;
+
 export async function POST(request: NextRequest) {
   const { timeframe } = await request.json();
   const apiKey = process.env.THE_GRAPH_API_KEY;
@@ -17,6 +20,7 @@ export async function POST(request: NextRequest) {
       query: `
         query getMetricsSnapshots($startTime: BigInt!) {
           metricsSnapshots(
+            first: ${PAGE_SIZE}
             orderBy: timestamp
             orderDirection: asc
             where: { timestamp_gt: $startTime }

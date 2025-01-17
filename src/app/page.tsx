@@ -12,6 +12,7 @@ import {
 import { MetricCards } from "@/components/metrics/MetricCards";
 import { PerformanceChart } from "@/components/metrics/PerformanceChart";
 import { MetricsSnapshot } from "@/types/metrics";
+import { calculateCurrentAPY } from "@/utils/apy";
 
 const timeframes = {
   "1": "1 day",
@@ -55,7 +56,8 @@ export default function Home() {
     fetchData();
   }, [timeframe]);
 
-  const latestExchangeRate = Number(data[data.length-1]?.exchangeRate);
+  const latestExchangeRate = Number(data[data.length - 1]?.exchangeRate);
+  const currentAPY = calculateCurrentAPY(data);
 
   return (
     <main className="p-4">
@@ -81,7 +83,7 @@ export default function Home() {
           </div>
         </CardHeader>
         <CardContent>
-          <MetricCards exchangeRate={latestExchangeRate} />
+          <MetricCards exchangeRate={latestExchangeRate} apy={currentAPY} />
           <PerformanceChart data={data} />
         </CardContent>
       </Card>

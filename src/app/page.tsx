@@ -19,30 +19,12 @@ export default function Home() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const dayInSeconds = 24 * 60 * 60;
       try {
-        const startTime =
-          Math.floor(Date.now() / 1000) - timeframe * dayInSeconds;
-        const apiKey = process.env.NEXT_PUBLIC_THE_GRAPH_API_KEY;
-        const queryUrl = `https://gateway.thegraph.com/api/${apiKey}/subgraphs/id/tzAqe6bWVrFZeSmLJRc9bp5i1tHic2QbnMY3kNZihUv`;
+        const queryUrl = "/api/metrics";
         const response = await fetch(queryUrl, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            query: `
-              query getMetricsSnapshots($startTime: BigInt!) {
-                metricsSnapshots(
-                  orderBy: timestamp
-                  orderDirection: asc
-                  where: { timestamp_gt: $startTime }
-                ) {
-                  exchangeRate
-                  timestamp
-                }
-              }
-            `,
-            variables: { startTime },
-          }),
+          body: JSON.stringify({ timeframe }),
         });
 
         const json = await response.json();

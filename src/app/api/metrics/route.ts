@@ -1,7 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-
-// The Graph's maximum page size
-const PAGE_SIZE = 1000;
+import { fetchAllMetrics } from "@/services/graph";
 
 export async function POST(request: NextRequest) {
   const { timeframe } = await request.json();
@@ -12,28 +10,6 @@ export async function POST(request: NextRequest) {
   const startTime = isNaN(timeframe)
     ? 1
     : Math.floor(Date.now() / 1000) - timeframe * dayInSeconds;
-
-  const response = await fetch(queryUrl, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      query: `
-        query getMetricsSnapshots($startTime: BigInt!) {
-          metricsSnapshots(
-            first: ${PAGE_SIZE}
-            orderBy: timestamp
-            orderDirection: asc
-            where: { timestamp_gt: $startTime }
-          ) {
-            exchangeRate
-            timestamp
-          }
-        }
-      `,
-      variables: { startTime },
-    }),
-  });
-
-  const data = await response.json();
-  return NextResponse.json(data);
+  const metricsSnapshots = await fetchAllMetrics(queryUrl, startTime);
+  return NextResponse.json({ data: { metricsSnapshots } });
 }

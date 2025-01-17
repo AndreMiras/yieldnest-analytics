@@ -51,6 +51,8 @@ export default function Home() {
     { value: "7", text: "7 days" },
     { value: "30", text: "30 days" },
     { value: "90", text: "90 days" },
+    { value: "365", text: "1 year" },
+    { value: "max", text: "Max" },
   ];
 
   return (
@@ -68,7 +70,9 @@ export default function Home() {
               </SelectTrigger>
               <SelectContent>
                 {timeframes.map((tf) => (
-                  <SelectItem key={tf.value} value={tf.value}>{tf.text}</SelectItem>
+                  <SelectItem key={tf.value} value={tf.value}>
+                    {tf.text}
+                  </SelectItem>
                 ))}
               </SelectContent>
             </Select>

@@ -1,3 +1,5 @@
+import getMetricsSnapshotsQuery from "@/queries/metrics";
+
 // The Graph's maximum page size
 const PAGE_SIZE = 1000;
 
@@ -15,26 +17,14 @@ export const fetchMetricsPage = async (
   startTime: number,
   skip: number,
 ): Promise<Array<{ exchangeRate: string; timestamp: string }>> => {
+  const body = JSON.stringify({
+    query: getMetricsSnapshotsQuery,
+    variables: { startTime, skip },
+  });
   const response = await fetch(queryUrl, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      query: `
-        query getMetricsSnapshots($startTime: BigInt!, $skip: Int!) {
-          metricsSnapshots(
-            first: ${PAGE_SIZE}
-            skip: $skip
-            orderBy: timestamp
-            orderDirection: asc
-            where: { timestamp_gt: $startTime }
-          ) {
-            exchangeRate
-            timestamp
-          }
-        }
-      `,
-      variables: { startTime, skip },
-    }),
+    body,
   });
 
   const json = (await response.json()) as MetricsResponse;

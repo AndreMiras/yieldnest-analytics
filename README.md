@@ -4,6 +4,8 @@ Extract & chart YieldNest analytics using The Graph Protocol.
 
 <https://yieldnest-analytics.vercel.app/>
 
+<img src="https://i.imgur.com/yf8eAI6.png" alt="Screenshot">
+
 ## Features
 
 - Real-time exchange rate tracking

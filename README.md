@@ -1,5 +1,7 @@
 # YieldNest Analytics
 
+[![Tests](https://github.com/AndreMiras/yieldnest-analytics/actions/workflows/tests.yml/badge.svg)](https://github.com/AndreMiras/yieldnest-analytics/actions/workflows/tests.yml)
+
 Extract & chart YieldNest analytics using The Graph Protocol.
 
 <https://yieldnest-analytics.vercel.app/>

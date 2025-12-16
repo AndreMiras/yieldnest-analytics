@@ -8,5 +8,16 @@ export default defineConfig({
     environment: "node",
     include: ["src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}"],
     exclude: ["node_modules", ".next"],
+    coverage: {
+      provider: "v8",
+      reporter: ["text", "json", "lcov"],
+      reportsDirectory: "./coverage",
+      exclude: [
+        "node_modules/",
+        ".next/",
+        "src/**/*.{test,spec}.{ts,tsx}",
+        "**/*.config.{ts,mts,js}",
+      ],
+    },
   },
 });

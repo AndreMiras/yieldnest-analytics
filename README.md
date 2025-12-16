@@ -1,6 +1,7 @@
 # YieldNest Analytics
 
 [![Tests](https://github.com/AndreMiras/yieldnest-analytics/actions/workflows/tests.yml/badge.svg)](https://github.com/AndreMiras/yieldnest-analytics/actions/workflows/tests.yml)
+[![codecov](https://codecov.io/gh/AndreMiras/yieldnest-analytics/graph/badge.svg?token=PX1DVOGE6G)](https://codecov.io/gh/AndreMiras/yieldnest-analytics)
 
 Extract & chart YieldNest analytics using The Graph Protocol.
 

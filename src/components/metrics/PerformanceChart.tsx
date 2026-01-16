@@ -25,13 +25,19 @@ export const PerformanceChart: React.FC<PerformanceChartProps> = ({ data }) => (
         />
         <YAxis yAxisId="exchange" domain={["auto", "auto"]} />
         <Tooltip
-          labelFormatter={(ts) => new Date(ts * 1000).toLocaleString()}
-          formatter={(value: number, name) => [
-            name === "Exchange Rate"
-              ? value.toFixed(4)
-              : value.toFixed(2) + "%",
-            name,
-          ]}
+          labelFormatter={(ts) =>
+            ts != null ? new Date(Number(ts) * 1000).toLocaleString() : ""
+          }
+          formatter={(value, name) => {
+            if (value == null) return ["-", name];
+            const numValue = Number(value);
+            return [
+              name === "Exchange Rate"
+                ? numValue.toFixed(4)
+                : numValue.toFixed(2) + "%",
+              name,
+            ];
+          }}
         />
         <Legend />
         <Line

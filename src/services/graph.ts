@@ -27,7 +27,20 @@ export const fetchMetricsPage = async (
     body,
   });
 
+  if (!response.ok) {
+    throw new Error(
+      `The Graph API error: ${response.status} ${response.statusText}`,
+    );
+  }
+
   const json = (await response.json()) as MetricsResponse;
+
+  if (!json.data?.metricsSnapshots) {
+    throw new Error(
+      `Unexpected response from The Graph API: missing data.metricsSnapshots`,
+    );
+  }
+
   return json.data.metricsSnapshots;
 };
 

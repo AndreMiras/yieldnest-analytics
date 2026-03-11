@@ -359,18 +359,16 @@ describe("Home", () => {
     it("handles malformed API response gracefully", async () => {
       mockCalculateAPY.mockReturnValue(null);
 
-      const consoleErrorSpy = vi
-        .spyOn(console, "error")
-        .mockImplementation(() => {});
       mockSuccessfulFetch({ invalidStructure: true });
 
       render(<Home />);
 
       await waitFor(() => {
-        expect(consoleErrorSpy).toHaveBeenCalled();
+        expect(mockFetch).toHaveBeenCalled();
       });
 
-      consoleErrorSpy.mockRestore();
+      // Should render without crashing, treating missing data as empty
+      expect(screen.getByText("ynETH Performance vs ETH")).toBeInTheDocument();
     });
 
     it("handles very large datasets", async () => {

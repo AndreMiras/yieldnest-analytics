@@ -38,8 +38,13 @@ export default function Home() {
           body: JSON.stringify({ timeframe }),
         });
 
+        if (!response.ok) {
+          console.error(`API error: ${response.status}`);
+          return;
+        }
+
         const json = await response.json();
-        const rawData = json.data.metricsSnapshots;
+        const rawData = json.data?.metricsSnapshots ?? [];
 
         const processedData: MetricsSnapshot[] = rawData.map(
           (snapshot: MetricsSnapshot) => ({
